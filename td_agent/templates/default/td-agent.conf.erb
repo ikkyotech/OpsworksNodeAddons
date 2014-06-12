@@ -1,6 +1,26 @@
 <% if node['td_agent']['includes'] %>
 include conf.d/*.conf 
 <% end %>
+<% node['td_agent']['aggregator'].each do |name, aggregator| %>
+# Log Forwarding
+<match <%= name %>.**>
+  type forward
+
+  <% aggregator.host.each do |no, host| %>
+  <server>
+    host <%= host['name'] %>
+    port <%= host['port'] || 24224 %>
+    <% if no != 0 %>
+    standby
+    <% end %>
+  </server>
+  <% end %>
+
+  # use longer flush_interval to reduce CPU usage.
+  # note that this is a trade-off against latency.
+  flush_interval <%= aggregator['flush_interval'] || "60s" %>
+</match>
+<% end %>
 <% if node['td_agent']['default_config'] %>
 ####
 ## Output descriptions:
