@@ -1,6 +1,8 @@
 Ikkyotech Opsworks Addon Chef tools
 ===================================
 
+Note: This repository is a merged repository of https://github.com/vlamic/OpsWorksEnvy and https://github.com/treasure-data/chef-td-agent to be used with http://aws.amazon.com/opsworks/
+
 ### environment_variables
 
 Set environment variables for your environment and Node.js OpsWorks project.
@@ -71,4 +73,3 @@ Custom Chef cookbook JSON example:
 	}
 }
 ```
->>>>>>> OpsworksEnvy/master
