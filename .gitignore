@@ -1,1 +1,16 @@
 .idea/
+apt/.vagrant
+apt/Berksfile.lock
+apt/Gemfile.lock
+apt/*~
+apt/*#
+apt/.#*
+apt/\#*#
+apt/.*.sw[a-z]
+apt/*.un~
+apt/.bundle
+apt/.cache
+apt/.kitchen
+apt/bin
+apt/.kitchen.local.yml
+apt/.coverage

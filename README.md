@@ -1,7 +1,7 @@
 Ikkyotech Opsworks Addon Chef tools
 ===================================
 
-Note: This repository is a merged repository of https://github.com/vlamic/OpsWorksEnvy and https://github.com/treasure-data/chef-td-agent to be used with http://aws.amazon.com/opsworks/
+Note: This repository is a merged repository of [OpsworksEnvy](https://github.com/vlamic/OpsWorksEnvy), [chef-td-agent](https://github.com/treasure-data/chef-td-agent) and [Apt](https://github.com/opscode-cookbooks/apt) to be used with [OpsWorks](http://aws.amazon.com/opsworks/)
 
 ### environment_variables
 
