@@ -12,7 +12,7 @@ if aggregators
   type forward
   <% aggregator[:hosts].each_with_index do |host, no|%>
   <server>
-    host <%= host[:name] %>
+    host <%= host[:host] %>
     port <%= host[:port] || "24224" %>
     <% if no != 0 %>
     standby
