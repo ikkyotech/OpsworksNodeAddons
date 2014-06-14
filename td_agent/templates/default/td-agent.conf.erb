@@ -8,7 +8,7 @@ if aggregators
        if aggregator[:hosts]
        %>
 # Log Forwarding
-<match <%= name %>.**>
+<match <%= name %>>
   type forward
   <% aggregator[:hosts].each_with_index do |host, no|%>
   <server>
