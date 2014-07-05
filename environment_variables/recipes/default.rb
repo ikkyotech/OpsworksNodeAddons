@@ -1,5 +1,11 @@
 Chef::Log.info("Setting environment variables")
 
+Chef::Log.info("Adding ec2 environment variables")
+ENV["EC2_INSTANCE_ID"] = `ec2-metadata -i`[/ (?<a>.*)n?$/, "a"]
+ENV["EC2_AVAIL_ZONE"] = `ec2-metadata -z`[/ (?<a>.*)n?$/, "a"]
+ENV["EC2_PUBLIC_IP4"] = `ec2-metadata -z`[/ (?<a>.*)n?$/, "a"]
+ENV["HOST_NAME"] = `ec2-metadata -p`[/ (?<a>.*)n?$/, "a"]
+
 Chef::Log.info("Setting environment variables for current process")
 node[:environment_variables].each do |name, value|
 	ENV["#{name}"] = "#{value}"
