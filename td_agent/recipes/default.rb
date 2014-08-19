@@ -29,6 +29,15 @@ directory '/etc/td-agent/' do
   action :create
 end
 
+if node['td_agent']['includes'] or node['td_agent']['conf']
+  directory "/etc/td-agent/conf.d/" do
+    mode "0755"
+    owner 'td-agent'
+    group 'td-agent'
+    action :create
+  end
+end
+
 case node['platform']
 when "ubuntu"
   dist = node['lsb']['codename']
@@ -53,12 +62,6 @@ template "/etc/td-agent/td-agent.conf" do
   source "td-agent.conf.erb"
 end
 
-if node['td_agent']['includes']
-  directory "/etc/td-agent/conf.d" do
-    mode "0755"
-  end
-end
-
 package "td-agent" do
   action :upgrade
   version node[:td_agent][:version] if node[:td_agent][:pinning_version]
@@ -81,10 +84,13 @@ node[:td_agent][:plugins].each do |plugin|
 end
 
 node[:td_agent][:conf].each do |name, conf|
-  template "/etc/td-agent/conf.d/" + name + ".conf"
+  template "/etc/td-agent/conf.d/" + name + ".conf" do
     mode "0644"
     source "plugin.erb"
-    variables :conf => conf, :name => name
+    variables({
+      :conf => conf,
+      :name => name
+    })
   end
 end
 
