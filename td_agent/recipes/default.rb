@@ -80,6 +80,14 @@ node[:td_agent][:plugins].each do |plugin|
   end
 end
 
+node[:td_agent][:conf].each do |name, conf|
+  template "/etc/td-agent/conf.d/" + name + ".conf"
+    mode "0644"
+    source "plugin.erb"
+    variables :conf => conf, :name => name
+  end
+end
+
 service "td-agent" do
   action [ :enable, :start ]
   subscribes :restart, resources(:template => "/etc/td-agent/td-agent.conf")
