@@ -29,7 +29,7 @@ directory '/etc/td-agent/' do
   action :create
 end
 
-if node['td_agent']['includes']
+if node['td_agent']['conf']
   directory "/etc/td-agent/conf.d/" do
     recursive true
     action :delete
@@ -39,6 +39,17 @@ if node['td_agent']['includes']
     owner 'td-agent'
     group 'td-agent'
     action :create
+  end
+end
+
+node[:td_agent][:conf].each do |name, conf|
+  template "/etc/td-agent/conf.d/" + name + ".conf" do
+    mode "0644"
+    source "plugin.erb"
+    variables({
+      :conf => conf,
+      :name => name
+    })
   end
 end
 
